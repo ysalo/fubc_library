@@ -111,3 +111,21 @@ def add_book(cursor, type_name, barcode, title, first_name, last_name, isbn, lan
         add_book_to_barcode(cursor, title, barcode)
     else: 
         print('Cannot add into Book of type = ({})'.format(type_name))
+
+"""
+Creates a new data entry if the bible does not exist, 
+Otherwise modifies the existing quantity by the quatity passed in.
+"""
+def add_bible(cursor, language, translation, quantity):
+    #TODO: do data validation
+    old_qun = get_bible_quantity(cursor, language, translation) #accessing the same thing twice here
+    if old_qun == None:
+        q = ("INSERT INTO Bible (quantity, language, translation) VALUES (%s, %s, %s)")
+    else:
+        test_qun = old_qun + quantity
+        if test_qun < 0: 
+            print('Update Rejected! Update will result in negative bible quantity for ' 
+            '(language = {}, translation = {}, quantity = {}). '.format(language, translation, test_qun)) 
+            return
+        q = ("UPDATE Bible SET quantity = quantity + %s WHERE language = %s AND translation = %s")
+    cursor.execute(q, (quantity, language, translation))

@@ -90,6 +90,18 @@ def db_get_book_info_by_barcode(cursor, barcode):
         return None
     return result
     
+def get_bible_quantity(cursor, language, translation):
+    q = """
+        SELECT quantity 
+        FROM Bible 
+        WHERE language = %s AND translation = %s
+        """
+    cursor.execute(q, (language, translation))
+    result = cursor.fetchall()
+    if not result:
+        return None
+    return result[0][0]
+
 def split_author_name(author): #TODO: find a better way to do this
     name = author.split(' ')
     if len(name) == 2:
