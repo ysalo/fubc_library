@@ -1,4 +1,4 @@
-def get_author_id(cursor, first_name, last_name, middle_name=None):
+def get_author_id(cursor, first_name, last_name, middle_name=''):
     #TODO: Check the <=> 'null safe' operator.
     q = ("""
         SELECT 
@@ -73,7 +73,7 @@ def get_book_quantity(cursor, title):
         return None
     return result[0][0]
 
-def get_books_by_author(cursor, first_name, last_name, middle_name=None):
+def get_books_by_author(cursor, first_name, last_name, middle_name=''):
     author_id = get_author_id(cursor, first_name, last_name, middle_name)
     if not author_id:
         return []
@@ -90,7 +90,7 @@ def get_books_by_author(cursor, first_name, last_name, middle_name=None):
         WHERE 
             A.first_name = %s and A.last_name = %s and A.middle_name <=> %s
         """)
-    cursor.execute(q, (first_name, last_name))
+    cursor.execute(q, (first_name, last_name, middle_name))
     result = cursor.fetchall()
     if not result:
         return None

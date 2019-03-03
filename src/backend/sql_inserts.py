@@ -100,7 +100,7 @@ def add_authored_by(cursor, first_name, last_name, title, middle_name=None):
 Connects a book to a barcode only if both already exist,
 ignores the request otherwise.
 """
-def add_book_to_barcode(cursor, title, barcode): 
+def add_book_to_barcode(cursor, title, barcode): #TODO: THIS SHOULD BE DONE WITH THE book_id
     book_id = get_book_id(cursor, title)
     q = ("""
             SELECT 
@@ -132,7 +132,12 @@ def add_book(cursor, type_name, barcode, title, first_name, last_name, language,
     if type_name == 'book': 
         add_item_type(cursor, type_name)
         add_item(cursor, barcode, type_name)
-        add_book_entry(cursor, barcode, title, language, publication_year, isbn)
+        #TODO: FIX THIS MESS 
+        #Done to ensure that (author + book_title) is unique.
+        if not get_author_id(cursor, first_name, last_name, middle_name) or not get_book_id(cursor, title):
+            add_book_entry(cursor, barcode, title, language, publication_year, isbn)
+        else: 
+            print("Duplicate add for title = ({}) and author = {} {} {}".format(title, first_name, last_name, middle_name ))
         add_author(cursor, first_name, last_name, middle_name)
         add_authored_by(cursor, first_name, last_name, title, middle_name)
         add_book_to_barcode(cursor, title, barcode)
