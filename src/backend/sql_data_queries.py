@@ -34,7 +34,7 @@ Returns the book_id if found.
 Otherwise returns None used for checking. 
 """
 def get_book_id(cursor, title): #TODO: NEEDS TO BE FIXED BECAUSE BOOKS CAN HAVE DUPLICATE TITLES.
-                                #NOT LIKELY SO I'LL DO IT LATER. CAN BE DONE BY AUTHOR.
+                                #NOT LIKELY SO I'LL DO IT LATER. CAN BE CHECKED DONE BY AUTHOR.
     q =("""
         SELECT 
             book_id 
@@ -95,8 +95,13 @@ def get_books_by_author(cursor, first_name, last_name, middle_name=''):
     if not result:
         return None
     return result
-
-def db_get_book_info_by_barcode(cursor, barcode):
+"""
+Returns ('Book Title, ISBN, Language, Publication Year, Author First Name, Author Last Name, Author Middle Name') 
+given a barcode, if the barcode exists otherwise returns None.
+"""
+#TODO: rework so that the authors are returned as a list and not a separate instance multiple times for different authors of the 
+#      same book.
+def book_from_barcode(cursor, barcode):
     q = ("""
     SELECT 
         B.title, B.isbn, B.language, B.publication_year, A.first_name, A.last_name, A.middle_name
@@ -109,7 +114,7 @@ def db_get_book_info_by_barcode(cursor, barcode):
     LEFT JOIN
         Book_Authored_By AS BAB ON BAB.book_id = B.book_id
     LEFT JOIN 
-        Authors AS A ON A.author_id = BAB.author_id
+        Author AS A ON A.author_id = BAB.author_id
     WHERE 
         I.barcode = %s
     """)
@@ -118,6 +123,16 @@ def db_get_book_info_by_barcode(cursor, barcode):
     if not result:
         return None
     return result
+#TODO: rework so that the list of authors gets printed.
+def print_book(t):
+    if not t: 
+        print("Book does not exit!")
+        return 
+
+    l = t[0]
+    print(l)
+    print("""BOOK INFO\nTitle = {}\nISBN = {}\nLanguage = {}\nPublication Year = {}\nFirst Name = {}\nLast Name = {}\nMiddle Name = {}
+            """.format(l[0], l[1], l[2], l[3], l[4], l[5], l[6]))
 
 # def split_author_name(author): 
 #     name = author.split(' ')
