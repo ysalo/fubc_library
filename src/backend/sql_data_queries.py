@@ -134,6 +134,36 @@ def print_book(t):
     print("""BOOK INFO\nTitle = {}\nISBN = {}\nLanguage = {}\nPublication Year = {}\nFirst Name = {}\nLast Name = {}\nMiddle Name = {}
             """.format(l[0], l[1], l[2], l[3], l[4], l[5], l[6]))
 
+def get_member_id(cursor, email):
+    q =("""
+        SELECT 
+            member_id 
+        FROM 
+            Member
+        WHERE 
+            email = %s
+        """)
+    cursor.execute(q, (email, ))
+    result = cursor.fetchall()
+    if not result:
+        return None
+    return result[0][0]
+
+def get_item_status(cursor, barcode):
+    q =("""
+        SELECT 
+            status 
+        FROM 
+            Item
+        WHERE 
+            barcode = %s
+        """)
+    cursor.execute(q, (barcode, ))
+    result = cursor.fetchall()
+    if not result:
+        return None
+    return result[0][0]
+
 # def split_author_name(author): 
 #     name = author.split(' ')
 #     if len(name) == 2:

@@ -144,6 +144,49 @@ def add_book(cursor, type_name, barcode, title, first_name, last_name, language,
     else: 
         print('Cannot add into Book of type = ({})'.format(type_name))
 
+def add_member(cursor, first_name, last_name, email, middle_name=None , phone_number=None):
+    try:
+        q = ("""
+        INSERT INTO Member(first_name, last_name, email, middle_name, phone_number) VALUES (%s, %s, %s, %s, %s)
+        """)
+        cursor.execute(q, (first_name, last_name, email, middle_name, phone_number))
+        print("Successfully added to Member Table email = ({}) phone = ({}) first_name = ({}) last_name = ({}) middle_name = ({})"
+        .format(email, phone_number, first_name, last_name, middle_name))
+    except mysql.connector.IntegrityError as err:
+        print(err ,"in **Member** Table, IGNORED.")
+
+
+def add_loan(cursor, barcode, email):
+    member_id = get_member_id(cursor, email)
+    item_status = get_item_status(cursor, barcode)
+    if member_id and item_status:
+        try:
+            q = ("""
+            INSERT INTO Loan(barcode, member_id) VALUES (%s, %s)
+            """)
+            cursor.execute(q, (barcode, member_id))
+            print("Successfully added to Loan Table barcode = ({}) email = ({})"
+            .format(barcode, email  ))
+        except mysql.connector.IntegrityError as err:
+            print(err ,"in **Loan** Table, IGNORED.") 
+    else: 
+        print("Cannot add loan for email =({}) barcode = ({})".format(email, barcode)) 
+
+"""
+Add new author, ignores the request if the author already exists.
+""" 
+def add_genre(cursor, genre_name):
+    try:
+        q = ("""
+        INSERT INTO Genre(name) VALUES (%s)
+        """)
+        cursor.execute(q, (genre_name,))
+        print("""Successfully added to Genre Table genre_name = ({})"""
+            .format(genre_name))
+    except mysql.connector.IntegrityError as err:
+        print(err ,"in **Genre** Table IGNORED.")
+
+
 # """
 # Creates a new data entry if the bible does not exist, 
 # Otherwise modifies the existing quantity by the quatity passed in.
