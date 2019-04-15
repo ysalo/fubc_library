@@ -52,7 +52,7 @@ def add_author(cursor, first_name, last_name, middle_name=None):
 Adds a book entry if the barcode is found and if the title does not exist, 
 ignore the request otherwise.
 """
-def add_book_entry(cursor, barcode, title, language, publication_year, isbn=None):
+def add_book_entry(cursor, barcode, title, language, publication_year, genre_name, isbn=None, series_title=None, in_series_number=None):
     q = ("""
         SELECT 
             COUNT(*) 
@@ -63,12 +63,15 @@ def add_book_entry(cursor, barcode, title, language, publication_year, isbn=None
         """)
     cursor.execute(q, (barcode,))
     result = cursor.fetchall()[0][0]
+    genre_id = get_genre_id(cursor, genre_name)
+    series_id = get_series_id(cursor, series_title)
     if result == 1:
         try:
             q = ("""
-                INSERT INTO Book (title, isbn, language, publication_year) VALUES (%s, %s, %s, %s)
+                INSERT INTO Book (genre_id, series_id, title, isbn, language, publication_year, in_series_number) 
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
                 """)
-            cursor.execute(q, (title, isbn, language, publication_year)) 
+            cursor.execute(q, (genre_id, series_id, title, isbn, language, publication_year, in_series_number)) 
             print("Successfully added to Books title = ({})".format(title))
         except mysql.connector.IntegrityError as err:
             print(err ,"in **Books** Table IGNORED.")
@@ -128,14 +131,18 @@ def add_book_to_barcode(cursor, title, barcode): #TODO: THIS SHOULD BE DONE WITH
 """
 Adds a book into the database.
 """
-def add_book(cursor, type_name, barcode, title, first_name, last_name, language, publication_year, middle_name=None, isbn=None):
+def add_book(cursor, type_name, barcode, title, first_name, last_name, language, publication_year,
+ genre_name, middle_name=None, isbn=None, series_title=None, in_series_number=None):
     if type_name == 'book': 
         add_item_type(cursor, type_name)
         add_item(cursor, barcode, type_name)
+        add_genre(cursor, genre_name)
+        if not series_title is None: 
+            add_series(cursor, series_title)
         #TODO: FIX THIS MESS 
         #Done to ensure that (author + book_title) is unique.
         if not get_author_id(cursor, first_name, last_name, middle_name) or not get_book_id(cursor, title):
-            add_book_entry(cursor, barcode, title, language, publication_year, isbn)
+            add_book_entry(cursor, barcode, title, language, publication_year, genre_name, isbn, series_title, in_series_number)
         else: 
             print("Duplicate add for title = ({}) and author = {} {} {}".format(title, first_name, last_name, middle_name ))
         add_author(cursor, first_name, last_name, middle_name)
@@ -173,7 +180,7 @@ def add_loan(cursor, barcode, email):
         print("Cannot add loan for email =({}) barcode = ({})".format(email, barcode)) 
 
 """
-Add new author, ignores the request if the author already exists.
+Add new genre, ignores the request if the genre already exists.
 """ 
 def add_genre(cursor, genre_name):
     try:
@@ -186,6 +193,19 @@ def add_genre(cursor, genre_name):
     except mysql.connector.IntegrityError as err:
         print(err ,"in **Genre** Table IGNORED.")
 
+"""
+Add new series, ignores the request if the series already exists.
+""" 
+def add_series(cursor, title):
+    try:
+        q = ("""
+        INSERT INTO Series(title) VALUES (%s)
+        """)
+        cursor.execute(q, (title,))
+        print("""Successfully added to Series Table title = ({})"""
+            .format(title))
+    except mysql.connector.IntegrityError as err:
+        print(err ,"in **Series** Table IGNORED.")
 
 # """
 # Creates a new data entry if the bible does not exist, 

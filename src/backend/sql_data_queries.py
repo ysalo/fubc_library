@@ -164,6 +164,37 @@ def get_item_status(cursor, barcode):
         return None
     return result[0][0]
 
+def get_series_id(cursor, title):
+    q =("""
+    SELECT 
+        series_id 
+    FROM 
+        Series
+    WHERE 
+        title = %s
+    """)
+    cursor.execute(q, (title, ))
+    result = cursor.fetchall()
+    if not result:
+        return None
+    return result[0][0]
+
+def get_genre_id(cursor, name):
+    q =("""
+    SELECT 
+        genre_id 
+    FROM 
+        Genre
+    WHERE 
+        name = %s
+    """)
+    cursor.execute(q, (name, ))
+    result = cursor.fetchall()
+    if not result:
+        return None
+    return result[0][0]
+
+
 # def split_author_name(author): 
 #     name = author.split(' ')
 #     if len(name) == 2:
