@@ -137,7 +137,7 @@ def add_book(cursor, type_name, barcode, title, first_name, last_name, language,
         add_item_type(cursor, type_name)
         add_item(cursor, barcode, type_name)
         add_genre(cursor, genre_name)
-        if not series_title is None: 
+        if series_title is not None: 
             add_series(cursor, series_title)
         #TODO: FIX THIS MESS 
         #Done to ensure that (author + book_title) is unique.
