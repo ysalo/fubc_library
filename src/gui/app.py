@@ -1,10 +1,12 @@
-import sys
 import mysql.connector
 from mysql.connector import errorcode
 from PyQt5.QtWidgets import QApplication, QStackedWidget, QStyleFactory
-
 from fubc_lib import Ui_StackedWidget
 
+import sys 
+sys.path.insert(0, 'D:\\church_lib\\python_code\\src\\backend')
+import sql_data_queries as sdq
+ 
 class MainWindow(QStackedWidget, Ui_StackedWidget):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -17,10 +19,12 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
         user_name = self.user_line.text()
         pass_word = self.pass_line.text()
         self.connect(user_name, pass_word)
-        if self.cnx.is_connected():
-            print('Connected to MySql')
-        else: 
-            print('Cnx not connected')
+        if self.cnx is None or not self.cnx.is_connected():
+            print('Login error')
+        else:
+            print('Sucessful login') 
+            self.setCurrentIndex(1)
+
 
     def connect(self, user_name, pass_word):
         try:
@@ -41,8 +45,6 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
         # else:
         #     print('Closing Database Connection.')
         #     self.cnx.close()
-
-
     def closeEvent(self, event):
         if self.cnx: 
             self.cnx.close()
@@ -55,8 +57,9 @@ def main():
     app = QApplication(sys.argv)
     app.setStyle('Fusion')
     main_window = MainWindow()
+
     main_window.show()
     sys.exit(app.exec_())
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
