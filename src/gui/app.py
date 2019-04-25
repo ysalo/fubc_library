@@ -19,7 +19,7 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
         self.cursor = None
         self.loginBtn.clicked.connect(self.on_login)
         self.add_book_btn.clicked.connect(self.on_add_book)
-        self.add_book_cancel_btn.clicked.connect(self.on_add_book_cancel)
+        self.add_book_cancel_btn.clicked.connect(self.on_add_book_clear)
         self.login_error_label.hide()
         self.user_line.returnPressed.connect(self.on_enter_user_line)
         self.pass_line.returnPressed.connect(self.on_enter_pass_line)
@@ -64,13 +64,11 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
         pass_word = self.pass_line.text()
         self.connect(user_name, pass_word)
         if self.cnx is None or not self.cnx.is_connected():
-            print('Login error')
             self.user_line.clear()
             self.pass_line.clear()
             self.user_line.setFocus()
             self.login_error_label.show()
         else:
-            print('Sucessful login') 
             self.setCurrentIndex(1)
 
     def on_add_book(self):
@@ -90,7 +88,7 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
             Series Title: {} In Series Number: {} Barcode: {}""".format(title, isbn, language, publication_year, genre_name
         ,last_name,first_name,middle_name,series_title,in_series_number,barcode))
 
-    def on_add_book_cancel(self):
+    def on_add_book_clear(self):
         self.book_title_line.clear()
         self.isbn_line.clear()
         self.pub_year_line.clear()
@@ -110,18 +108,19 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
 
             self.cursor = self.cnx.cursor()
         except mysql.connector.Error as err:
-            if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-                print("Incorrect Username or Password!")
+            pass
+            # if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            #     print("Incorrect Username or Password!")
 
-            elif err.errno == errorcode.ER_BAD_DB_ERROR:
-                print("Database does not exist!")
+            # elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            #     print("Database does not exist!")
     
-            else:
-                print(err)    
+            # else:
+            #     print(err)    
         # else:
         #     print('Closing Database Connection.')
         #     self.cnx.close()
-        
+
     def closeEvent(self, event):
         if self.cnx: 
             self.cnx.close()
