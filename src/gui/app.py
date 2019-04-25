@@ -17,47 +17,21 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
 
         self.cnx = None 
         self.cursor = None
+        self.hide_msgs()
         self.loginBtn.clicked.connect(self.on_login)
         self.add_book_btn.clicked.connect(self.on_add_book)
         self.add_book_cancel_btn.clicked.connect(self.on_add_book_clear)
-        self.login_error_label.hide()
+        self.clear_book_btn.clicked.connect(self.on_clear_book)
+        self.clear_series_btn.clicked.connect(self.on_clear_series)
+        self.clear_author_btn.clicked.connect(self.on_clear_author)
+
         self.user_line.returnPressed.connect(self.on_enter_user_line)
         self.pass_line.returnPressed.connect(self.on_enter_pass_line)
         self.series_check_box.stateChanged.connect(self.on_in_series_checkbox)
         self.setWindowIcon(QIcon('D:\\church_lib\\python_code\\img\\fubc_logo.jpg'))
         self.series_check_box.installEventFilter(self)
-        
+
         self.setFixedSize(self.size())
-
-    def eventFilter(self, o, e):
-        # if (o.objectName() == "series_check_box"):
-        if e.type() == QtCore.QEvent.KeyPress and e.key() ==  QtCore.Qt.Key_Return:
-            self.series_check_box.nextCheckState()
-            return True 
-        return False
-    # def eventFilter(self, o, e):
-    #     if e.type() == QEvent.DragEnter: #remember to accept the enter event
-    #         e.acceptProposedAction()
-    #         return True
-    #     if e.type() == QEvent.Drop:
-    #         # handle the event
-    #         # ...
-    #         return True
-    #     return False #remember to return false for other event types
-
-    def on_in_series_checkbox(self):
-        state = not self.series_label.isEnabled()
-        self.series_label.setEnabled(state)
-        self.in_series_label.setEnabled(state)
-        self.series_title_label.setEnabled(state)
-        self.series_title_line.setEnabled(state)
-        self.in_series_line.setEnabled(state)
-
-    def on_enter_user_line(self):
-        self.pass_line.setFocus()
-
-    def on_enter_pass_line(self):
-        self.loginBtn.click()
 
     def on_login(self):
         user_name = self.user_line.text()
@@ -67,11 +41,29 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
             self.user_line.clear()
             self.pass_line.clear()
             self.user_line.setFocus()
-            self.login_error_label.show()
+            self.login_err_msg.show()
         else:
             self.setCurrentIndex(1)
 
+    def on_enter_user_line(self):
+        self.pass_line.setFocus()
+
+    def on_enter_pass_line(self):
+        self.loginBtn.click()
+
+    def on_in_series_checkbox(self):
+        state = not self.series_label.isEnabled()
+        self.series_label.setEnabled(state)
+        self.in_series_label.setEnabled(state)
+        self.series_title_label.setEnabled(state)
+        self.series_title_line.setEnabled(state)
+        self.in_series_line.setEnabled(state)
+        self.clear_series_btn.setEnabled(state)
+        self.series_title_err_msg.hide()
+        self.in_series_err_msg.hide()
+
     def on_add_book(self):
+        self.hide_msgs()
         title = self.book_title_line.text()
         isbn = self.isbn_line.text()
         language = self.language_box.currentText()
@@ -80,13 +72,80 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
         last_name = self.last_name_line.text()
         first_name = self.first_name_line.text()
         middle_name = self.middle_name_line.text()
-        series_title = self.series_title_line.text()
-        in_series_number = self.in_series_line.text()
+        series_title = self.series_title_line.text() if self.series_title_line.isEnabled() else None 
+        in_series_number = self.in_series_line.text() if self.series_title_line.isEnabled() else None 
         barcode = self.barcode_line.text()
 
-        print("""Title: {} ISBN: {} Language: {} Publication Year: {} \nGenre: {} Last Name: {} First Name: {} Middle Name: {} 
-            Series Title: {} In Series Number: {} Barcode: {}""".format(title, isbn, language, publication_year, genre_name
-        ,last_name,first_name,middle_name,series_title,in_series_number,barcode))
+        if self.check_add_book_form():
+            si.add_book(self.cursor, 'book', barcode, title, first_name, last_name, language, publication_year, genre_name,
+            middle_name, isbn, series_title, in_series_number)
+            self.cnx.commit()
+            self.add_book_sucs_msg.show()
+            self.barcode_line.setFocus()
+            self.barcode_line.selectAll()
+        # print("""Title: {} ISBN: {} Language: {} Publication Year: {} \nGenre: {} Last Name: {} First Name: {} Middle Name: {} 
+        #     Series Title: {} In Series Number: {} Barcode: {}""".format(title, isbn, language, publication_year, genre_name
+        # ,last_name,first_name,middle_name,series_title,in_series_number,barcode))
+
+    #TODO: find a way to do this cleaner, eventually.
+    def check_add_book_form(self):
+        flag = True
+        if len(self.book_title_line.text()) == 0:
+            self.book_title_err_msg.show()
+            flag = False 
+
+        if len(self.pub_year_line.text()) == 0:
+            self.pub_year_err_msg.show()
+            flag = False
+
+        if len(self.last_name_line.text()) == 0:
+            self.last_name_err_msg.show()
+            flag = False
+            
+        if len(self.first_name_line.text()) == 0:
+            self.first_name_err_msg.show()
+            flag = False
+
+        if len(self.first_name_line.text()) == 0:
+            self.first_name_err_msg.show()
+            flag = False
+        
+        if len(self.barcode_line.text()) == 0:
+            self.barcode_err_msg.show()
+            flag = False
+    
+        if self.series_check_box.checkState():
+            if len(self.series_title_line.text()) == 0:
+                self.series_title_err_msg.show()
+                flag = False
+        
+        if self.series_check_box.checkState():
+            if len(self.in_series_line.text()) == 0:
+                self.in_series_err_msg.show()
+                flag = False
+
+        if not flag: 
+            self.add_book_err_msg.show()
+        return flag
+            
+    def on_clear_book(self):
+        self.book_title_line.clear()
+        self.isbn_line.clear()
+        self.pub_year_line.clear()
+        self.language_box.setCurrentIndex(0)
+        self.genre_box.setCurrentIndex(0)
+        self.book_title_line.setFocus()
+        
+    def on_clear_author(self):
+        self.last_name_line.clear()
+        self.first_name_line.clear()
+        self.middle_name_line.clear()
+        self.last_name_line.setFocus()
+    
+    def on_clear_series(self):
+        self.series_title_line.clear()
+        self.in_series_line.clear()
+        self.series_title_line.setFocus()
 
     def on_add_book_clear(self):
         self.book_title_line.clear()
@@ -99,27 +158,19 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
         self.in_series_line.clear()
         self.barcode_line.clear()
         self.book_title_line.setFocus()
+        self.hide_msgs()
 
-    def connect(self, user_name, pass_word):
-        try:
-            self.cnx = mysql.connector.connect(user=user_name, password=pass_word,
-                                        host='127.0.0.1',
-                                        database='fubc_library')
-
-            self.cursor = self.cnx.cursor()
-        except mysql.connector.Error as err:
-            pass
-            # if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-            #     print("Incorrect Username or Password!")
-
-            # elif err.errno == errorcode.ER_BAD_DB_ERROR:
-            #     print("Database does not exist!")
-    
-            # else:
-            #     print(err)    
-        # else:
-        #     print('Closing Database Connection.')
-        #     self.cnx.close()
+    def hide_msgs(self):
+        self.login_err_msg.hide()
+        self.book_title_err_msg.hide()
+        self.pub_year_err_msg.hide()
+        self.series_title_err_msg.hide()
+        self.in_series_err_msg.hide()
+        self.last_name_err_msg.hide()
+        self.first_name_err_msg.hide()
+        self.barcode_err_msg.hide()
+        self.add_book_err_msg.hide()
+        self.add_book_sucs_msg.hide()
 
     def closeEvent(self, event):
         if self.cnx: 
@@ -128,6 +179,21 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
             print('MySql Connection Closed')
         print('Application Closing')
         event.accept()
+
+    def eventFilter(self, o, e):
+        if e.type() == QtCore.QEvent.KeyPress and e.key() ==  QtCore.Qt.Key_Return:
+            self.series_check_box.nextCheckState()
+            return True 
+        return False
+
+    def connect(self, user_name, pass_word):
+        try:
+            self.cnx = mysql.connector.connect(user=user_name, password=pass_word,
+                                        host='127.0.0.1',
+                                        database='fubc_library')
+            self.cursor = self.cnx.cursor()
+        except mysql.connector.Error:
+            pass
 
 def main():
     app = QApplication(sys.argv)
