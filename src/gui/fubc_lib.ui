@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>739</width>
-    <height>478</height>
+    <height>475</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,128 +20,263 @@
    <number>0</number>
   </property>
   <widget class="QWidget" name="LoginPage">
-   <layout class="QFormLayout" name="formLayout">
-    <property name="horizontalSpacing">
-     <number>7</number>
+   <widget class="QLabel" name="login_error_label">
+    <property name="enabled">
+     <bool>false</bool>
     </property>
-    <property name="leftMargin">
-     <number>250</number>
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>310</y>
+      <width>384</width>
+      <height>21</height>
+     </rect>
     </property>
-    <property name="topMargin">
-     <number>200</number>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
     </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;User Name or Password Incorrect! Please try again.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>200</y>
+      <width>254</width>
+      <height>106</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0" columnstretch="0,0" rowminimumheight="0,0,0">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="horizontalSpacing">
+      <number>7</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="user_label">
+       <property name="font">
+        <font>
+         <family>Segoe UI Black</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>User Name</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="user_line">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="echoMode">
+        <enum>QLineEdit::Normal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="pass_label">
+       <property name="font">
+        <font>
+         <family>Segoe UI Black</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Password</string>
+       </property>
+       <property name="margin">
+        <number>0</number>
+       </property>
+       <property name="indent">
+        <number>12</number>
+       </property>
+       <property name="openExternalLinks">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="pass_line">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="loginBtn">
+       <property name="font">
+        <font>
+         <family>Segoe UI Black</family>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="mouseTracking">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Login </string>
+       </property>
+       <property name="autoDefault">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="AddBookPage">
+   <layout class="QGridLayout" name="gridLayout_4">
     <item row="0" column="0">
-     <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0" columnstretch="0,0" rowminimumheight="0,0,0">
-      <property name="leftMargin">
-       <number>0</number>
-      </property>
-      <property name="topMargin">
-       <number>0</number>
-      </property>
-      <property name="horizontalSpacing">
-       <number>7</number>
-      </property>
+     <layout class="QGridLayout" name="bookGridLayout">
       <item row="0" column="0">
-       <widget class="QLabel" name="user_label">
+       <widget class="QLabel" name="book_label">
         <property name="font">
          <font>
-          <family>Segoe UI Black</family>
-          <pointsize>12</pointsize>
+          <pointsize>10</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
         <property name="text">
-         <string>User Name</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="user_line">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="echoMode">
-         <enum>QLineEdit::Normal</enum>
+         <string>Book</string>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="pass_label">
-        <property name="font">
-         <font>
-          <family>Segoe UI Black</family>
-          <pointsize>12</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
+       <widget class="QLabel" name="book_title_label">
         <property name="text">
-         <string>Password</string>
-        </property>
-        <property name="margin">
-         <number>0</number>
-        </property>
-        <property name="indent">
-         <number>12</number>
-        </property>
-        <property name="openExternalLinks">
-         <bool>false</bool>
+         <string>Title </string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="pass_line">
+       <widget class="QLineEdit" name="book_title_line"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="isbn_label">
         <property name="text">
-         <string/>
-        </property>
-        <property name="echoMode">
-         <enum>QLineEdit::Password</enum>
+         <string>ISBN</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QPushButton" name="loginBtn">
-        <property name="font">
-         <font>
-          <family>Segoe UI Black</family>
-          <pointsize>11</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="mouseTracking">
-         <bool>false</bool>
-        </property>
+       <widget class="QLineEdit" name="isbn_line"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="language_label">
         <property name="text">
-         <string>Login </string>
+         <string>Language</string>
         </property>
-        <property name="autoDefault">
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QComboBox" name="language_box">
+        <property name="enabled">
          <bool>true</bool>
         </property>
+        <property name="editable">
+         <bool>false</bool>
+        </property>
+        <property name="insertPolicy">
+         <enum>QComboBox::NoInsert</enum>
+        </property>
+        <property name="minimumContentsLength">
+         <number>0</number>
+        </property>
+        <item>
+         <property name="text">
+          <string>RU</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>UA</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>EN</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="pub_year_label">
+        <property name="text">
+         <string>Publication Year</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLineEdit" name="pub_year_line"/>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="genre_label">
+        <property name="text">
+         <string>Genre</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QComboBox" name="genre_box">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="editable">
+         <bool>false</bool>
+        </property>
+        <property name="insertPolicy">
+         <enum>QComboBox::NoInsert</enum>
+        </property>
+        <property name="minimumContentsLength">
+         <number>0</number>
+        </property>
+        <item>
+         <property name="text">
+          <string>Християнські Романи</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Різні</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>
     </item>
     <item row="1" column="0">
-     <widget class="QLabel" name="login_error_label">
-      <property name="enabled">
-       <bool>false</bool>
+     <spacer name="BookSeriesSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
       </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>187</height>
+       </size>
       </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;User Name or Password Incorrect! Please try again.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
+     </spacer>
     </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="AddBookPage">
-   <layout class="QGridLayout" name="gridLayout_4">
     <item row="0" column="1">
      <spacer name="BookAuthorSpacer">
       <property name="orientation">
@@ -307,142 +442,13 @@
       </item>
      </layout>
     </item>
-    <item row="1" column="0">
-     <spacer name="BookSeriesSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>190</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="0" column="0">
-     <layout class="QGridLayout" name="bookGridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="book_label">
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Book</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="book_title_label">
-        <property name="text">
-         <string>Title </string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="book_title_line"/>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="isbn_label">
-        <property name="text">
-         <string>ISBN</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="isbn_line"/>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="language_label">
-        <property name="text">
-         <string>Language</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QComboBox" name="language_box">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="editable">
-         <bool>false</bool>
-        </property>
-        <property name="insertPolicy">
-         <enum>QComboBox::NoInsert</enum>
-        </property>
-        <property name="minimumContentsLength">
-         <number>0</number>
-        </property>
-        <item>
-         <property name="text">
-          <string>RU</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>UA</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>EN</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="pub_year_label">
-        <property name="text">
-         <string>Publication Year</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QLineEdit" name="pub_year_line"/>
-      </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="genre_label">
-        <property name="text">
-         <string>Genre</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
-       <widget class="QComboBox" name="genre_box">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="editable">
-         <bool>false</bool>
-        </property>
-        <property name="insertPolicy">
-         <enum>QComboBox::NoInsert</enum>
-        </property>
-        <property name="minimumContentsLength">
-         <number>0</number>
-        </property>
-        <item>
-         <property name="text">
-          <string>Християнські Романи</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Різні</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-     </layout>
-    </item>
     <item row="2" column="0">
      <layout class="QGridLayout" name="seriesGridLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="series_label">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="font">
          <font>
           <pointsize>10</pointsize>
@@ -457,6 +463,9 @@
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="series_title_label">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>Series Title</string>
         </property>
@@ -464,6 +473,9 @@
       </item>
       <item row="1" column="1">
        <widget class="QLineEdit" name="series_title_line">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -471,13 +483,39 @@
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="in_series_label">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>In Series Number</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="in_series_line"/>
+       <widget class="QLineEdit" name="in_series_line">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QCheckBox" name="series_check_box">
+        <property name="text">
+         <string>In Series</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+        <property name="autoRepeat">
+         <bool>false</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -493,6 +531,7 @@
   <tabstop>language_box</tabstop>
   <tabstop>pub_year_line</tabstop>
   <tabstop>genre_box</tabstop>
+  <tabstop>series_check_box</tabstop>
   <tabstop>series_title_line</tabstop>
   <tabstop>in_series_line</tabstop>
   <tabstop>last_name_line</tabstop>
