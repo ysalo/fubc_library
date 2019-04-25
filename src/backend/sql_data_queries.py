@@ -246,7 +246,7 @@ def get_books_in_series(cursor, series_title):
     series_id = get_series_id(cursor, series_title)
     q = ("""
     SELECT 
-        title 
+        title, in_series_number 
     FROM 
         Book
     WHERE 

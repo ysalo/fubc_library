@@ -6,6 +6,7 @@ from mysql.connector import errorcode
 Add new item type, ignores the request if the type already exists.
 """
 def add_item_type(cursor, type_name):
+    print(type_name)
     try:
         q = ("""
         INSERT INTO Item_Type(Type_Name) VALUES (%s)
