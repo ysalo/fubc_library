@@ -6,9 +6,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>748</width>
-    <height>569</height>
+    <width>961</width>
+    <height>705</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::DefaultContextMenu</enum>
   </property>
   <property name="windowTitle">
    <string>FUBC Library</string>
@@ -17,168 +25,262 @@
    <string notr="true">Fusion</string>
   </property>
   <property name="currentIndex">
-   <number>0</number>
+   <number>3</number>
   </property>
   <widget class="QWidget" name="LoginPage">
-   <widget class="QLabel" name="login_err_msg">
-    <property name="enabled">
-     <bool>false</bool>
+   <layout class="QFormLayout" name="formLoginPageLayout">
+    <property name="fieldGrowthPolicy">
+     <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
     </property>
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>350</y>
-      <width>384</width>
-      <height>21</height>
-     </rect>
+    <property name="labelAlignment">
+     <set>Qt::AlignCenter</set>
     </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
+    <property name="formAlignment">
+     <set>Qt::AlignCenter</set>
     </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;User Name or Password Incorrect! Please try again.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>240</y>
-      <width>254</width>
-      <height>106</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0" columnstretch="0,0" rowminimumheight="0,0,0">
-     <property name="leftMargin">
-      <number>0</number>
-     </property>
-     <property name="topMargin">
-      <number>0</number>
-     </property>
-     <property name="horizontalSpacing">
-      <number>7</number>
-     </property>
-     <item row="0" column="0">
-      <widget class="QLabel" name="user_label">
-       <property name="font">
-        <font>
-         <family>Segoe UI Black</family>
-         <pointsize>12</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>User Name</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="user_line">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="echoMode">
-        <enum>QLineEdit::Normal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="pass_label">
-       <property name="font">
-        <font>
-         <family>Segoe UI Black</family>
-         <pointsize>12</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Password</string>
-       </property>
-       <property name="margin">
-        <number>0</number>
-       </property>
-       <property name="indent">
-        <number>12</number>
-       </property>
-       <property name="openExternalLinks">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="pass_line">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="echoMode">
-        <enum>QLineEdit::Password</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QPushButton" name="loginBtn">
-       <property name="font">
-        <font>
-         <family>Segoe UI Black</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="mouseTracking">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>Login </string>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-  </widget>
-  <widget class="QWidget" name="AddBookPage">
-   <layout class="QGridLayout" name="gridLayout_3">
     <item row="0" column="0">
-     <layout class="QGridLayout" name="bookGridLayout">
-      <item row="10" column="1">
-       <widget class="QPushButton" name="clear_book_btn">
+     <layout class="QVBoxLayout" name="verticalInputLayout">
+      <item>
+       <layout class="QVBoxLayout" name="verticalUserAndPassLayout">
+        <item>
+         <widget class="QLabel" name="user_label">
+          <property name="font">
+           <font>
+            <family>Segoe UI Black</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>User Name</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="user_line">
+          <property name="minimumSize">
+           <size>
+            <width>251</width>
+            <height>41</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>251</width>
+            <height>41</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="user_label_2">
+          <property name="font">
+           <font>
+            <family>Segoe UI Black</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Password</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="pass_line">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>251</width>
+            <height>41</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>251</width>
+            <height>41</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="echoMode">
+           <enum>QLineEdit::Password</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLoginAndErrLayout">
+        <item>
+         <widget class="QPushButton" name="login_btn">
+          <property name="minimumSize">
+           <size>
+            <width>131</width>
+            <height>41</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>131</width>
+            <height>41</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Segoe UI Black</family>
+            <pointsize>11</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="mouseTracking">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Login </string>
+          </property>
+          <property name="autoDefault">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="login_err_msg">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;User Name or Password Incorrect!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="Menu_Page">
+   <layout class="QFormLayout" name="formMenuLayout">
+    <property name="labelAlignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="formAlignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <item row="0" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QPushButton" name="add_mem_menu_btn">
+        <property name="minimumSize">
+         <size>
+          <width>151</width>
+          <height>51</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>151</width>
+          <height>51</height>
+         </size>
+        </property>
         <property name="font">
          <font>
-          <pointsize>9</pointsize>
+          <pointsize>10</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
         <property name="text">
-         <string>Clear Book</string>
-        </property>
-        <property name="autoDefault">
-         <bool>true</bool>
+         <string>Add Member </string>
         </property>
        </widget>
       </item>
-      <item row="8" column="0">
-       <widget class="QLabel" name="genre_label">
+      <item>
+       <widget class="QPushButton" name="add_book_menu_btn">
+        <property name="minimumSize">
+         <size>
+          <width>151</width>
+          <height>51</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>151</width>
+          <height>51</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
-         <string>Genre</string>
+         <string>Add Book</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="language_label">
+      <item>
+       <widget class="QPushButton" name="add_genre_menu_btn">
+        <property name="minimumSize">
+         <size>
+          <width>151</width>
+          <height>51</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>151</width>
+          <height>51</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
-         <string>Language</string>
+         <string>Add Genre</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="1">
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="AddBookPage">
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="bookGridLayout">
+      <item row="6" column="1">
        <widget class="QComboBox" name="language_box">
         <property name="enabled">
          <bool>true</bool>
@@ -209,17 +311,7 @@
         </item>
        </widget>
       </item>
-      <item row="6" column="1">
-       <widget class="QLineEdit" name="pub_year_line"/>
-      </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="pub_year_label">
-        <property name="text">
-         <string>Publication Year</string>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="1">
+      <item row="9" column="1">
        <widget class="QComboBox" name="genre_box">
         <property name="enabled">
          <bool>true</bool>
@@ -245,41 +337,45 @@
         </item>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="book_title_line"/>
+      <item row="7" column="1">
+       <widget class="QLineEdit" name="pub_year_line"/>
       </item>
-      <item row="4" column="0">
+      <item row="7" column="0">
+       <widget class="QLabel" name="pub_year_label">
+        <property name="text">
+         <string>Publication Year</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
        <widget class="QLabel" name="isbn_label">
         <property name="text">
          <string>ISBN</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="book_title_label">
-        <property name="text">
-         <string>Title </string>
-        </property>
-       </widget>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="book_title_line"/>
       </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="book_label">
+      <item row="5" column="1">
+       <widget class="QLineEdit" name="isbn_line"/>
+      </item>
+      <item row="8" column="1">
+       <widget class="QLabel" name="pub_year_err_msg">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="font">
          <font>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
+          <pointsize>7</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>Book</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Can't Empty!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
       <item row="4" column="1">
-       <widget class="QLineEdit" name="isbn_line"/>
-      </item>
-      <item row="3" column="1">
        <widget class="QLabel" name="book_title_err_msg">
         <property name="enabled">
          <bool>true</bool>
@@ -294,18 +390,62 @@
         </property>
        </widget>
       </item>
-      <item row="7" column="1">
-       <widget class="QLabel" name="pub_year_err_msg">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
+      <item row="1" column="0">
+       <widget class="QLabel" name="book_label">
         <property name="font">
          <font>
-          <pointsize>7</pointsize>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
          </font>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Can't Empty!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>Book</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="book_title_label">
+        <property name="text">
+         <string>Title </string>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="1">
+       <widget class="QPushButton" name="clear_book_btn">
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Clear Book</string>
+        </property>
+        <property name="autoDefault">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="language_label">
+        <property name="text">
+         <string>Language</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0">
+       <widget class="QLabel" name="genre_label">
+        <property name="text">
+         <string>Genre</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="add_book_back_btn">
+        <property name="text">
+         <string>Back</string>
         </property>
        </widget>
       </item>
@@ -721,11 +861,314 @@
     </item>
    </layout>
   </widget>
+  <widget class="QWidget" name="AddMemberPage">
+   <layout class="QFormLayout" name="formLayout">
+    <property name="labelAlignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="formAlignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <item row="0" column="0">
+     <widget class="QPushButton" name="add_mem_back_btn">
+      <property name="minimumSize">
+       <size>
+        <width>131</width>
+        <height>51</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>131</width>
+        <height>51</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Back</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="add_mem_last_label">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Last Name</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="add_mem_last_line">
+        <property name="minimumSize">
+         <size>
+          <width>431</width>
+          <height>41</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>431</width>
+          <height>41</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="add_mem_last_err_msg">
+        <property name="text">
+         <string>Cannot be empty </string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="add_mem_mid_label">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Middle Name </string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="add_mem_mid_line">
+        <property name="minimumSize">
+         <size>
+          <width>431</width>
+          <height>41</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>431</width>
+          <height>41</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="add_mem_first_label">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>First Name </string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="add_mem_first_line">
+        <property name="minimumSize">
+         <size>
+          <width>431</width>
+          <height>41</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>431</width>
+          <height>41</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLabel" name="add_mem_first_err_msg">
+        <property name="text">
+         <string>Cannot be empty </string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="add_mem_email_label">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Email</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLineEdit" name="add_mem_email_line">
+        <property name="minimumSize">
+         <size>
+          <width>431</width>
+          <height>41</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>431</width>
+          <height>41</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QLabel" name="add_mem_email_err_msg">
+        <property name="text">
+         <string>Cannot be empty </string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="add_mem_phone_label">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Phone</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLineEdit" name="add_mem_phone_line">
+        <property name="minimumSize">
+         <size>
+          <width>431</width>
+          <height>41</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>431</width>
+          <height>41</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QPushButton" name="add_mem_clear_btn">
+          <property name="minimumSize">
+           <size>
+            <width>131</width>
+            <height>51</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>131</width>
+            <height>51</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Clear</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="add_mem_add_btn">
+          <property name="minimumSize">
+           <size>
+            <width>131</width>
+            <height>51</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>131</width>
+            <height>51</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Add</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="add_mem_fail_err_msg">
+        <property name="text">
+         <string>Cannot Add Member. Please fix erros.</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="add_mem_suc_msg">
+        <property name="text">
+         <string>Sucessfully added Member.</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
  </widget>
  <tabstops>
   <tabstop>user_line</tabstop>
   <tabstop>pass_line</tabstop>
-  <tabstop>loginBtn</tabstop>
+  <tabstop>login_btn</tabstop>
+  <tabstop>add_mem_menu_btn</tabstop>
+  <tabstop>add_book_menu_btn</tabstop>
+  <tabstop>add_genre_menu_btn</tabstop>
   <tabstop>book_title_line</tabstop>
   <tabstop>isbn_line</tabstop>
   <tabstop>language_box</tabstop>
@@ -743,6 +1186,15 @@
   <tabstop>barcode_line</tabstop>
   <tabstop>add_book_btn</tabstop>
   <tabstop>add_book_cancel_btn</tabstop>
+  <tabstop>add_book_back_btn</tabstop>
+  <tabstop>add_mem_last_line</tabstop>
+  <tabstop>add_mem_mid_line</tabstop>
+  <tabstop>add_mem_first_line</tabstop>
+  <tabstop>add_mem_email_line</tabstop>
+  <tabstop>add_mem_phone_line</tabstop>
+  <tabstop>add_mem_add_btn</tabstop>
+  <tabstop>add_mem_clear_btn</tabstop>
+  <tabstop>add_mem_back_btn</tabstop>
  </tabstops>
  <resources/>
  <connections/>
