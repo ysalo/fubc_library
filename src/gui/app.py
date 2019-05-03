@@ -2,6 +2,7 @@ import mysql.connector
 from mysql.connector import errorcode
 from PyQt5.QtWidgets import QApplication, QStackedWidget, QStyleFactory
 from PyQt5.QtGui import QIcon
+
 from PyQt5 import QtCore, QtWidgets
 from fubc_lib import Ui_StackedWidget
 
@@ -20,21 +21,11 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
         self.connect_buttons()
         self.hide_msgs()
         self.add_mem_hide_msgs()
+        self.hide_genre_msgs()
         self.series_check_box.stateChanged.connect(self.on_in_series_checkbox)
         self.setWindowIcon(QIcon('D:\\church_lib\\python_code\\img\\fubc_logo.jpg'))
         self.series_check_box.installEventFilter(self)
         self.showMaximized()
-
-
-
- 
-    # '''
-    # align widgets that could not be aligned in Designer
-    # '''
-    # def set_alignment(self):
-    #     self.formLayout.setAlignment(QtCore.Qt.AlignHCenter)
-    #     self.formLayout_2.setAlignment(QtCore.Qt.AlignHCenter)
-
 
     def connect_buttons(self):
         self.user_line.returnPressed.connect(self.on_enter_user_line)
@@ -51,6 +42,14 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
         self.add_book_back_btn.clicked.connect(self.on_add_book_back_btn)
         self.add_mem_add_btn.clicked.connect(self.on_add_mem)
         self.add_mem_clear_btn.clicked.connect(self.on_add_mem_clear)
+        self.add_genre_menu_btn.clicked.connect(self.on_add_genre_menu_btn)
+        self.add_genre_back_btn.clicked.connect(self.on_add_genre_back_btn)
+        self.clear_genre_btn.clicked.connect(self.on_clear_genre_btn)
+        self.add_genre_btn.clicked.connect(self.on_add_genre_btn)
+        self.checkout_menu_btn.clicked.connect(self.on_checkout_menu_btn)
+        self.checkout_back_btn.clicked.connect(self.on_checkout_back_btn)
+        self.checkout_clear_btn.clicked.connect(self.on_checkout_clear_btn)
+        self.checkout_btn.clicked.connect(self.on_checkout_btn)
 
     def on_login(self):
         user_name = self.user_line.text()
@@ -64,6 +63,11 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
         else:
             self.setCurrentIndex(1)
 
+    def on_checkout_menu_btn(self):
+        self.setCurrentIndex(5)
+
+    def on_checkout_back_btn(self):
+        self.setCurrentIndex(1)
 
     def on_add_book_menu_btn(self):
         self.setCurrentIndex(2)
@@ -76,6 +80,23 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
 
     def on_add_book_back_btn(self):
         self.setCurrentIndex(1)
+
+    def on_add_genre_menu_btn(self):
+        self.setCurrentIndex(4)
+
+    def on_add_genre_back_btn(self):
+        self.setCurrentIndex(1)
+
+    
+    def on_checkout_clear_btn(self):
+        self.checkout_br_line.clear()
+        self.checkout_email_line.clear()
+        self.checkout_br_line.setFocus()
+
+    def on_clear_genre_btn(self):
+        self.add_genre_fail_err_msg.hide()
+        self.genre_name_line.clear()
+        self.genre_name_line.setFocus()
 
     def on_clear_book(self):
         self.book_title_line.clear()
@@ -135,6 +156,16 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
         self.series_title_err_msg.hide()
         self.in_series_err_msg.hide()
 
+    def on_add_genre_btn(self):
+        self.hide_genre_msgs()
+        genre_name = self.genre_name_line.text()
+        if self.check_genre_form():
+            si.add_genre(self.cursor, genre_name)
+            self.cnx.commit()
+            self.add_genre_suc_msg.show()
+        else:
+            self.add_genre_fail_err_msg.show()
+
     def on_add_mem(self):
         self.add_mem_hide_msgs()
         last_name = self.add_mem_last_line.text()
@@ -178,6 +209,12 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
         #     Series Title: {} In Series Number: {} Barcode: {}""".format(title, isbn, language, publication_year, genre_name
         # ,last_name,first_name,middle_name,series_title,in_series_number,barcode))
 
+    def on_checkout_btn(self):
+        barcode = self.checkout_br_line.text()
+        email = self.checkout_email_line.text()
+        print(barcode, ' ', email)
+    
+    
     #TODO: find a way to do this cleaner, eventually.
     def check_add_book_form(self):
         flag = True
@@ -232,6 +269,14 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
  
         return flag
 
+    def check_genre_form(self):
+        return not len(self.genre_name_line.text()) == 0
+
+
+    def hide_genre_msgs(self):
+        self.add_genre_fail_err_msg.hide()
+        self.add_genre_suc_msg.hide()
+
     def hide_msgs(self):
         self.login_err_msg.hide()
         self.book_title_err_msg.hide()
@@ -277,12 +322,17 @@ class MainWindow(QStackedWidget, Ui_StackedWidget):
         except mysql.connector.Error:
             pass
 
+
 def main():
     app = QApplication(sys.argv)
     app.setStyle('Fusion')
+    myscreen = QApplication.desktop()
+    width = myscreen.width()
+    height = myscreen.height()
     main_window = MainWindow()
-    main_window.show()
-    main_window.setFixedSize(main_window.size())
+    # main_window.setFixedSize(width, height)
+    main_window.showMaximized()
+    #main_window.show()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':

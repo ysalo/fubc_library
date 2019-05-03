@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>StackedWidget</class>
- <widget class="QStackedWidget" name="StackedWidget">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+<widget class="QStackedWidget" name="StackedWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -25,7 +37,7 @@
    <string notr="true">Fusion</string>
   </property>
   <property name="currentIndex">
-   <number>0</number>
+   <number>5</number>
   </property>
   <widget class="QWidget" name="LoginPage">
    <layout class="QFormLayout" name="formLoginPageLayout">
@@ -185,7 +197,7 @@
    </layout>
   </widget>
   <widget class="QWidget" name="Menu_Page">
-   <layout class="QFormLayout" name="formLayout_4">
+   <layout class="QFormLayout" name="formMenuLayout">
     <property name="labelAlignment">
      <set>Qt::AlignCenter</set>
     </property>
@@ -269,32 +281,6 @@
         </property>
         <property name="text">
          <string>Add Genre</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="checkout_menu_btn">
-        <property name="minimumSize">
-         <size>
-          <width>151</width>
-          <height>51</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>151</width>
-          <height>51</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Checkout</string>
         </property>
        </widget>
       </item>
@@ -1337,10 +1323,10 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="CheckoutPage">
+  <widget class="QWidget" name="CheckoutBookPage">
    <layout class="QFormLayout" name="formLayout_3">
     <property name="labelAlignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
     </property>
     <property name="formAlignment">
      <set>Qt::AlignCenter</set>
@@ -1348,7 +1334,7 @@
     <item row="0" column="0">
      <layout class="QVBoxLayout" name="verticalLayout_6">
       <item>
-       <widget class="QPushButton" name="checkout_back_btn">
+       <widget class="QPushButton" name="add_genre_back_btn_2">
         <property name="minimumSize">
          <size>
           <width>131</width>
@@ -1452,7 +1438,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
-         <widget class="QPushButton" name="checkout_clear_btn">
+         <widget class="QPushButton" name="add_genre_back_btn_4">
           <property name="minimumSize">
            <size>
             <width>131</width>
@@ -1478,7 +1464,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="checkout_btn">
+         <widget class="QPushButton" name="add_genre_back_btn_3">
           <property name="minimumSize">
            <size>
             <width>131</width>
@@ -1516,6 +1502,7 @@
   <tabstop>login_btn</tabstop>
   <tabstop>add_mem_menu_btn</tabstop>
   <tabstop>add_book_menu_btn</tabstop>
+  <tabstop>add_genre_menu_btn</tabstop>
   <tabstop>book_title_line</tabstop>
   <tabstop>isbn_line</tabstop>
   <tabstop>language_box</tabstop>
@@ -1546,3 +1533,4 @@
  <resources/>
  <connections/>
 </ui>
+
