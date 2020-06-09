@@ -14,6 +14,8 @@ def get_author_id(cursor, first_name, last_name, middle_name=''):
         return None
     return result[0][0]
 
+
+
 def get_item_type_id(cursor, type_name):
     q = ("""
         SELECT 
@@ -29,13 +31,46 @@ def get_item_type_id(cursor, type_name):
         return None
     return result[0][0]
 
+
+def get_book_titles(cursor):
+    q = ("""
+    SELECT 
+        title 
+    FROM 
+        Book
+    """)
+    cursor.execute(q)
+    result = cursor.fetchall()
+    if result:
+        return list(map(lambda name: name[0], result))
+    return None
+
+def get_authors(cursor): 
+    q = ("""
+    SELECT 
+        *
+    FROM 
+        Author
+    ORDER BY 
+        author_id 
+    DESC
+    """)
+    cursor.execute(q)
+    result = cursor.fetchall()
+    if result:
+        l = list()
+        for entry in result: 
+            l.append((' '.join(str(i) for i in entry)))
+        return l
+    return None
+
 """
 Returns the book_id if found. 
 Otherwise returns None used for checking. 
 """
 def get_book_id(cursor, title): #TODO: NEEDS TO BE FIXED BECAUSE BOOKS CAN HAVE DUPLICATE TITLES.
                                 #NOT LIKELY SO I'LL DO IT LATER. CAN BE CHECKED DONE BY AUTHOR.
-    q =("""
+    q = ("""
         SELECT 
             book_id 
         FROM 
@@ -257,7 +292,53 @@ def get_books_in_series(cursor, series_title):
     if result: 
         return result
     return None
-    
+
+def get_genre_names(cursor):
+    q = ("""
+    SELECT 
+        name 
+    FROM 
+        Genre
+    """)
+    cursor.execute(q)
+    result = cursor.fetchall()
+    if result:
+        return list(map(lambda name: name[0], result))
+    return None
+
+def get_genre_name(cursor, barcode): 
+    q = ("""
+    SELECT 
+        name 
+        from (
+            select book.book_id, book.genre_id, genre.name, btb.Barcode from genre 
+            left join book on book.Genre_id = genre.Genre_Id
+            left join book_to_barcode as btb on btb.book_id = book.book_id
+        ) as book_to_genre
+    WHERE 
+        barcode = %s
+    """)
+    cursor.execute(q, (barcode, ))
+    result = cursor.fetchall()
+    if result: 
+        return result[0][0]
+    return None
+
+#!TODO: add sql trigger to set status to 1 if loan gets deleted
+def get_outstanding_loans(cursor):
+    q = ("""
+    select b.Title, m.First_name, m.Last_Name, l.Checkout, DATEDIFF(now(), l.due) as Days_Overdue from item as i
+    left join loan as l on i.barcode = l.barcode
+    left join member as m on l.member_id = m.member_id
+    left join book_to_barcode as btb on btb.barcode = i.barcode
+    left join book as b on b.book_id = btb.book_id
+    where i.status = 0;
+    """)
+    cursor.execute(q)
+    result = cursor.fetchall()
+    if result: 
+        return result 
+    return None
 
 # def split_author_name(author): 
 #     name = author.split(' ')

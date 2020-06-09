@@ -100,6 +100,18 @@ def add_authored_by(cursor, first_name, last_name, title, middle_name=None):
     else: 
         print("Cannot add to Authored by with author_id = ({}), book_id = ({})".format(author_id, book_id))    
 
+
+def change_author(cursor, author_id, first_name, middle_name, last_name): 
+    q = (""" 
+        UPDATE Author 
+            SET 
+                first_name = %s,
+                middle_name = %s,
+                last_name = %s
+            WHERE author_id = %s
+        """)
+    cursor.execute(q, (first_name, middle_name, last_name, author_id))
+
 """
 Connects a book to a barcode only if both already exist,
 ignores the request otherwise.
@@ -207,7 +219,6 @@ def add_series(cursor, title):
             .format(title))
     except mysql.connector.IntegrityError as err:
         print(err ,"in **Series** Table IGNORED.")
-
 # """
 # Creates a new data entry if the bible does not exist, 
 # Otherwise modifies the existing quantity by the quatity passed in.

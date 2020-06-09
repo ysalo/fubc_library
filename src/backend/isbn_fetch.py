@@ -14,7 +14,7 @@ def get_isbn_info(user_input):
     if book_info is None:
         print('Unknown ISBN')
     return (can_isbn, book_info)
-    
+
 #     title = book_info.get('Title')
 #     authors = book_info.get('Authors')
 #     publisher = book_info.get('Publisher')
